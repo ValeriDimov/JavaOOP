@@ -1,6 +1,6 @@
 package interfacesAndAbstraction.t03BirthdayCelebrations;
 
-public class Citizen implements Identifiable, Birthable {
+public class Citizen implements Person, Identifiable, Birthable {
     private String name;
     private int age;
     private String id;
@@ -13,13 +13,6 @@ public class Citizen implements Identifiable, Birthable {
         this.birthDate = birthDate;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
 
     @Override
     public String getId() {
@@ -29,5 +22,15 @@ public class Citizen implements Identifiable, Birthable {
     @Override
     public String getBirthDate() {
         return this.birthDate;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public int getAge() {
+        return this.age;
     }
 }

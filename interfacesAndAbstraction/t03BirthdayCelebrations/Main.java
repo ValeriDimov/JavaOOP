@@ -7,7 +7,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         String input = scanner.nextLine();
-        Map<String, List<Birthable>> birthMap = new HashMap<>();
+        //Map<String, List<Birthable>> birthMap = new HashMap<>();
+        List<Birthable> citizensAndPets = new ArrayList<>();
 
         while (!input.equals("End")) {
             String[] inputDetails = input.split("\\s+");
@@ -15,15 +16,14 @@ public class Main {
 
             switch (typeClass) {
                 case "Citizen":
-                    String name = inputDetails[1];
-                    int age = Integer.parseInt(inputDetails[2]);
-                    String id = inputDetails[3];
-                    String birthdate = inputDetails[4];
-                    String[] bData = birthdate.split("/");
-                    String currentYear = bData[2];
-                    Birthable citizen = new Citizen(name, age, id, birthdate);
-                    birthMap.putIfAbsent(currentYear, new ArrayList<>());
-                    birthMap.get(currentYear).add(citizen);
+                    String citizenName = inputDetails[1];
+                    int citizenAge = Integer.parseInt(inputDetails[2]);
+                    String citizenId = inputDetails[3];
+                    String citizenBirthdate = inputDetails[4];
+                    Citizen citizen = new Citizen(citizenName, citizenAge, citizenId, citizenBirthdate);
+                    citizensAndPets.add(citizen);
+//                    birthMap.putIfAbsent(currentYear, new ArrayList<>());
+//                    birthMap.get(currentYear).add(citizen);
                     break;
                 case "Robot":
                     String model = inputDetails[1];
@@ -31,13 +31,12 @@ public class Main {
                     Robot robot = new Robot(robotId, model);
                     break;
                 case "Pet":
-                    name = inputDetails[1];
-                    birthdate = inputDetails[2];
-                    bData = birthdate.split("/");
-                    currentYear = bData[2];
-                    Birthable pet = new Pet(name, birthdate);
-                    birthMap.putIfAbsent(currentYear, new ArrayList<>());
-                    birthMap.get(currentYear).add(pet);
+                    String petName = inputDetails[1];
+                    String petBirthdate = inputDetails[2];
+                    Pet pet = new Pet(petName, petBirthdate);
+                    citizensAndPets.add(pet);
+//                    birthMap.putIfAbsent(currentYear, new ArrayList<>());
+//                    birthMap.get(currentYear).add(pet);
                     break;
             }
 
@@ -45,13 +44,18 @@ public class Main {
         }
 
         String yearToCheck = scanner.nextLine();
+        for (Birthable citizensAndPet : citizensAndPets) {
+            if (citizensAndPet.getBirthDate().endsWith(yearToCheck)) {
+                System.out.println(citizensAndPet.getBirthDate());
+            }
+        }
 
-        birthMap.entrySet()
-                .stream()
-                .filter(e -> e.getKey().equals(yearToCheck))
-                .forEach(e -> e.getValue().forEach(p -> {
-                    System.out.println(p.getBirthDate());
-                }));
+//        birthMap.entrySet()
+//                .stream()
+//                .filter(e -> e.getKey().equals(yearToCheck))
+//                .forEach(e -> e.getValue().forEach(p -> {
+//                    System.out.println(p.getBirthDate());
+//                }));
 
     }
 }
